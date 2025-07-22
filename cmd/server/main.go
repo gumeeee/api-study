@@ -8,13 +8,32 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
 	"github.com/gumeeee/api-study/configs"
+	_ "github.com/gumeeee/api-study/docs"
 	"github.com/gumeeee/api-study/internal/entity"
 	"github.com/gumeeee/api-study/internal/infra/database"
 	"github.com/gumeeee/api-study/internal/infra/webserver/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
+// @title Go Expert Study API Example
+// @version 1.0
+// @description Product API With authentication
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name Guilherme Moura
+// @contact.url https://github.com/gumeeee
+// @contact.email guibr406@gmail.com
+
+// @licence.name MIT
+// @licence.url https://mit-license.org/
+
+// @host localhost:8000
+// @BasePath /
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	configs, err := configs.LoadConfig(".")
 	if err != nil {
@@ -52,6 +71,8 @@ func main() {
 
 	r.Post("/users", userHandler.Create)
 	r.Post("/users/generate_token", userHandler.GetJWT)
+
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	http.ListenAndServe(":8000", r)
 }

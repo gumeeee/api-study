@@ -1,0 +1,18 @@
+basePath: /
+host: localhost:8000
+info:
+  contact:
+    email: guibr406@gmail.com
+    name: Guilherme Moura
+    url: https://github.com/gumeeee
+  description: Product API With authentication
+  termsOfService: http://swagger.io/terms/
+  title: Go Expert Study API Example
+  version: "1.0"
+paths: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
